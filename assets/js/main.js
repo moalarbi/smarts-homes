@@ -41,29 +41,14 @@ const ICONS = {
  */
 function getRelativePath(targetPath) {
   const currentPath = window.location.pathname;
-  const depth = (currentPath.match(/\//g) || []).length;
+  const isSubPage = currentPath.includes('/about/') || currentPath.includes('/products/') || currentPath.includes('/solutions/') || currentPath.includes('/contact/');
   
-  // Handle root and subdirectories for GitHub Pages
-  // If we're in a subdirectory like /about/, we need to go up one level
-  // But we need to be careful with the base path /smarts-homes/
-  
-  const isGitHubPages = currentPath.includes('/smarts-homes/');
-  let prefix = '';
-  
-  if (isGitHubPages) {
-    // If we're at /smarts-homes/about/index.html, depth is 3
-    // We need to go up to /smarts-homes/
-    const parts = currentPath.split('/').filter(p => p);
-    const index = parts.indexOf('smarts-homes');
-    const relativeDepth = parts.length - index - 1;
-    prefix = '../'.repeat(relativeDepth);
-  } else {
-    // Local or root domain
-    const parts = currentPath.split('/').filter(p => p);
-    prefix = '../'.repeat(parts.length);
+  if (isSubPage) {
+    if (targetPath === 'index.html') return '../index.html';
+    if (targetPath.startsWith('assets/')) return '../' + targetPath;
+    return '../' + targetPath;
   }
-  
-  return prefix + targetPath;
+  return targetPath;
 }
 
 /**
@@ -74,11 +59,7 @@ function init() {
   renderFooter();
   initHeaderScroll();
   initMobileDrawer();
-  initFAQ();
   initRevealAnimations();
-  initCounters();
-  initBackToTop();
-  updateActiveNav();
 }
 
 /**
@@ -108,50 +89,39 @@ function renderHeader() {
         <nav class="desktop-nav" aria-label="التنقل الرئيسي">
           ${NAV_ITEMS.map(item => `
             <a href="${getRelativePath(item.href)}" 
-               class="nav-link ${isCurrentPage(item.href) ? 'active' : ''}" 
-               ${isCurrentPage(item.href) ? 'aria-current="page"' : ''}>
+               class="nav-link ${isCurrentPage(item.href) ? 'active' : ''}">
               ${item.name}
             </a>
           `).join('')}
         </nav>
 
         <div class="header-actions">
-          <a href="tel:${CONFIG.phoneNumber}" class="btn btn-primary phone-btn" aria-label="اتصل بنا">
+          <a href="tel:${CONFIG.phoneNumber}" class="btn btn-primary phone-btn">
             ${ICONS.phone}
             <span>${CONFIG.phoneDisplay}</span>
           </a>
-          <button class="burger-btn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobile-drawer">
+          <button class="burger-btn" aria-label="فتح القائمة">
             ${ICONS.menu}
           </button>
         </div>
       </div>
     </header>
 
-    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer" id="mobile-drawer">
       <div class="drawer-overlay"></div>
-      <div class="drawer-content" role="dialog" aria-modal="true" aria-label="القائمة">
-        <button class="drawer-close" aria-label="إغلاق القائمة">
-          ${ICONS.close}
-        </button>
+      <div class="drawer-content">
+        <button class="drawer-close">${ICONS.close}</button>
         <div class="drawer-header">
           <img src="${logoPath}" alt="${CONFIG.siteName}" class="drawer-logo" width="64" height="64">
         </div>
-        <nav class="drawer-nav" aria-label="التنقل المتنقل">
+        <nav class="drawer-nav">
           ${NAV_ITEMS.map(item => `
-            <a href="${getRelativePath(item.href)}" 
-               class="drawer-link ${isCurrentPage(item.href) ? 'active' : ''}"
-               ${isCurrentPage(item.href) ? 'aria-current="page"' : ''}>
+            <a href="${getRelativePath(item.href)}" class="drawer-link ${isCurrentPage(item.href) ? 'active' : ''}">
               ${ICONS[item.icon]}
               <span>${item.name}</span>
             </a>
           `).join('')}
         </nav>
-        <div class="drawer-footer">
-          <a href="tel:${CONFIG.phoneNumber}" class="btn btn-primary" style="width: 100%;">
-            ${ICONS.phone}
-            <span>${CONFIG.phoneDisplay}</span>
-          </a>
-        </div>
       </div>
     </div>
   `;
@@ -170,68 +140,35 @@ function renderFooter() {
   footer.innerHTML = `
     <footer class="site-footer">
       <div class="footer-inner">
-        <div class="footer-grid">
+        <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; padding: 4rem 0;">
           <div class="footer-brand">
-            <a href="${homeLink}" class="footer-logo">
+            <a href="${homeLink}" class="footer-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem;">
               <img src="${logoPath}" alt="" width="40" height="40">
               <span>${CONFIG.siteName}</span>
             </a>
-            <p>نقدم حلول المنازل الذكية المتكاملة بتقنيات عالمية وخبرة محلية. نحول منزلك إلى مساحة ذكية تجمع بين الراحة والأمان.</p>
-            <div class="footer-social">
-              <a href="https://twitter.com/smartshomes" target="_blank" rel="noopener" aria-label="تويتر">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
-              <a href="https://instagram.com/smartshomes" target="_blank" rel="noopener" aria-label="انستغرام">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              </a>
-              <a href="https://linkedin.com/company/smartshomes" target="_blank" rel="noopener" aria-label="لينكد إن">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-            </div>
+            <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">نقدم حلول المنازل الذكية المتكاملة بتقنيات عالمية وخبرة محلية.</p>
           </div>
 
           <div class="footer-links">
-            <h4>روابط سريعة</h4>
-            <ul>
-              ${NAV_ITEMS.map(item => `<li><a href="${getRelativePath(item.href)}">${item.name}</a></li>`).join('')}
+            <h4 style="color: white; margin-bottom: 1.5rem;">روابط سريعة</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              ${NAV_ITEMS.map(item => `<li><a href="${getRelativePath(item.href)}" style="color: rgba(255,255,255,0.7); text-decoration: none;">${item.name}</a></li>`).join('')}
             </ul>
           </div>
 
           <div class="footer-links">
-            <h4>خدماتنا</h4>
-            <ul>
-              <li><a href="${getRelativePath('solutions/index.html')}">الإنارة الذكية</a></li>
-              <li><a href="${getRelativePath('solutions/index.html')}">التكييف والمناخ</a></li>
-              <li><a href="${getRelativePath('solutions/index.html')}">الأمان والمراقبة</a></li>
-              <li><a href="${getRelativePath('solutions/index.html')}">الستائر الذكية</a></li>
-              <li><a href="${getRelativePath('solutions/index.html')}">أنظمة الصوت</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-links">
-            <h4>تواصل معنا</h4>
-            <ul>
-              <li><a href="tel:${CONFIG.phoneNumber}">${CONFIG.phoneDisplay}</a></li>
-              <li><a href="${CONFIG.whatsappLink}" target="_blank">واتساب</a></li>
-              <li><a href="mailto:info@smartshomes.sa">info@smartshomes.sa</a></li>
-              <li>الرياض، المملكة العربية السعودية</li>
+            <h4 style="color: white; margin-bottom: 1.5rem;">تواصل معنا</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><a href="tel:${CONFIG.phoneNumber}" style="color: rgba(255,255,255,0.7); text-decoration: none;">${CONFIG.phoneDisplay}</a></li>
+              <li><a href="${CONFIG.whatsappLink}" target="_blank" style="color: rgba(255,255,255,0.7); text-decoration: none;">واتساب</a></li>
             </ul>
           </div>
         </div>
-
-        <div class="footer-bottom">
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.875rem;">
           <p>© ${new Date().getFullYear()} ${CONFIG.siteName}. جميع الحقوق محفوظة.</p>
-          <button class="back-to-top" onclick="scrollToTop()" aria-label="العودة إلى الأعلى">
-            <span>العودة للأعلى</span>
-            ${ICONS.arrowUp}
-          </button>
         </div>
       </div>
     </footer>
-
-    <a href="${CONFIG.whatsappLink}" target="_blank" rel="noopener" class="whatsapp-float" aria-label="تواصل عبر واتساب">
-      ${ICONS.whatsapp}
-    </a>
   `;
 }
 
@@ -240,7 +177,7 @@ function renderFooter() {
  */
 function isCurrentPage(href) {
   const currentPath = window.location.pathname;
-  if (href === 'index.html' || href === '/') {
+  if (href === 'index.html') {
     return currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('smarts-homes');
   }
   return currentPath.includes(href.replace('index.html', ''));
@@ -251,10 +188,12 @@ function isCurrentPage(href) {
  */
 function initHeaderScroll() {
   const header = document.querySelector('.site-header');
+  if (!header) return;
+  
   const currentPath = window.location.pathname;
   const isHome = currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('smarts-homes');
   
-  if (!isHome) return; // Always scrolled style on subpages
+  if (!isHome) return;
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -273,138 +212,27 @@ function initMobileDrawer() {
   const drawer = document.getElementById('mobile-drawer');
   const closeBtn = document.querySelector('.drawer-close');
   const overlay = document.querySelector('.drawer-overlay');
-  const links = document.querySelectorAll('.drawer-link');
 
   if (!burgerBtn || !drawer) return;
 
-  const toggleDrawer = (open) => {
-    drawer.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-    burgerBtn.setAttribute('aria-expanded', open);
-    drawer.setAttribute('aria-hidden', !open);
-  };
-
-  burgerBtn.addEventListener('click', () => toggleDrawer(true));
-  closeBtn.addEventListener('click', () => toggleDrawer(false));
-  overlay.addEventListener('click', () => toggleDrawer(false));
-  
-  links.forEach(link => {
-    link.addEventListener('click', () => toggleDrawer(false));
-  });
-}
-
-/**
- * FAQ Accordion
- */
-function initFAQ() {
-  const questions = document.querySelectorAll('.faq-question');
-  
-  questions.forEach(q => {
-    q.addEventListener('click', () => {
-      const item = q.parentElement;
-      const isActive = item.classList.contains('active');
-      
-      // Close all other items
-      document.querySelectorAll('.faq-item').forEach(other => {
-        other.classList.remove('active');
-      });
-      
-      if (!isActive) {
-        item.classList.add('active');
-      }
-    });
-  });
+  burgerBtn.addEventListener('click', () => drawer.classList.add('open'));
+  closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+  overlay.addEventListener('click', () => drawer.classList.remove('open'));
 }
 
 /**
  * Reveal Animations on Scroll
  */
 function initRevealAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => {
-    observer.observe(el);
-  });
-}
-
-/**
- * Animated Counters
- */
-function initCounters() {
-  const counters = document.querySelectorAll('[data-counter]');
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = entry.target;
-        const countTo = parseInt(target.getAttribute('data-counter'));
-        const suffix = target.getAttribute('data-suffix') || '';
-        let current = 0;
-        const duration = 2000;
-        const step = countTo / (duration / 16);
-        
-        const updateCount = () => {
-          current += step;
-          if (current < countTo) {
-            target.textContent = Math.floor(current) + suffix;
-            requestAnimationFrame(updateCount);
-          } else {
-            target.textContent = countTo + suffix;
-          }
-        };
-        
-        updateCount();
-        observer.unobserve(target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(c => observer.observe(c));
-}
-
-/**
- * Back to Top Button
- */
-function initBackToTop() {
-  const btn = document.querySelector('.back-to-top');
-  if (!btn) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-      btn.style.opacity = '1';
-      btn.style.visibility = 'visible';
-    } else {
-      btn.style.opacity = '0';
-      btn.style.visibility = 'hidden';
-    }
-  });
-}
-
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-}
-
-/**
- * Update active nav link based on scroll position
- * (Useful for one-page sections, but here we use it for subpages)
- */
-function updateActiveNav() {
-  // Logic already handled in renderHeader via isCurrentPage
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 // Start the app
