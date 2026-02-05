@@ -64,8 +64,8 @@ function renderHeader() {
   header.innerHTML = `
     <header class="site-header ${isHome ? '' : 'scrolled'}">
       <div class="header-inner">
-        <a href="/" class="logo" aria-label="${CONFIG.siteName} - الصفحة الرئيسية">
-          <img src="/assets/img/logo.png" alt="" class="logo-img" width="48" height="48">
+        <a href="./" class="logo" aria-label="${CONFIG.siteName} - الصفحة الرئيسية">
+          <img src="assets/img/logo.png" alt="" class="logo-img" width="48" height="48">
           <div class="logo-text">
             <span class="logo-title">${CONFIG.siteName}</span>
             <span class="logo-subtitle">Smarts Homes</span>
@@ -101,7 +101,7 @@ function renderHeader() {
           ${ICONS.close}
         </button>
         <div class="drawer-header">
-          <img src="/assets/img/logo.png" alt="${CONFIG.siteName}" class="drawer-logo" width="64" height="64">
+          <img src="assets/img/logo.png" alt="${CONFIG.siteName}" class="drawer-logo" width="64" height="64">
         </div>
         <nav class="drawer-nav" aria-label="التنقل المتنقل">
           ${NAV_ITEMS.map(item => `
@@ -136,8 +136,8 @@ function renderFooter() {
       <div class="footer-inner">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="/" class="footer-logo">
-              <img src="/assets/img/logo.png" alt="" width="40" height="40">
+            <a href="./" class="footer-logo">
+              <img src="assets/img/logo.png" alt="" width="40" height="40">
               <span>${CONFIG.siteName}</span>
             </a>
             <p>نقدم حلول المنازل الذكية المتكاملة بتقنيات عالمية وخبرة محلية. نحول منزلك إلى مساحة ذكية تجمع بين الراحة والأمان.</p>
@@ -164,11 +164,11 @@ function renderFooter() {
           <div class="footer-links">
             <h4>خدماتنا</h4>
             <ul>
-              <li><a href="/solutions/">الإنارة الذكية</a></li>
-              <li><a href="/solutions/">التكييف والمناخ</a></li>
-              <li><a href="/solutions/">الأمان والمراقبة</a></li>
-              <li><a href="/solutions/">الستائر الذكية</a></li>
-              <li><a href="/solutions/">أنظمة الصوت</a></li>
+              <li><a href="solutions/">الإنارة الذكية</a></li>
+              <li><a href="solutions/">التكييف والمناخ</a></li>
+              <li><a href="solutions/">الأمان والمراقبة</a></li>
+              <li><a href="solutions/">الستائر الذكية</a></li>
+              <li><a href="solutions/">أنظمة الصوت</a></li>
             </ul>
           </div>
 
