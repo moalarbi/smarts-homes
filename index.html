@@ -1,626 +1,1470 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="#0a0a1a">
-  
-  <!-- Primary Meta Tags -->
-  <title>سمارتس هومز | حلول المنازل الذكية المتكاملة في الرياض</title>
-  <meta name="description" content="نقدم حلول المنازل الذكية المتكاملة في الرياض. إنارة ذكية، تكييف، أمان، ستائر، وأنظمة صوتية. تركيب احترافي ودعم فني.">
-  <meta name="keywords" content="منزل ذكي, smarthome, بيت ذكي, تحكم ذكي, إنارة ذكية, أمان ذكي, الرياض">
-  <meta name="author" content="سمارتس هومز">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://moalarbi.github.io/smarts-homes/">
-  <meta property="og:title" content="سمارتس هومز | حلول المنازل الذكية المتكاملة">
-  <meta property="og:description" content="نقدم حلول المنازل الذكية المتكاملة في الرياض. تركيب احترافي ودعم فني.">
-  <meta property="og:image" content="https://moalarbi.github.io/smarts-homes/assets/img/og-image.png">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://moalarbi.github.io/smarts-homes/">
-  <meta property="twitter:title" content="سمارتس هومز | حلول المنازل الذكية">
-  <meta property="twitter:description" content="نقدم حلول المنازل الذكية المتكاملة في الرياض.">
-  <meta property="twitter:image" content="https://moalarbi.github.io/smarts-homes/assets/img/og-image.png">
-  
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/main.css">
-  <style>
-    /* Hero Section Styles */
-    .hero-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      min-height: 100vh;
-      padding: 120px 0 80px;
-    }
-
-    @media (max-width: 1024px) {
-      .hero-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 100px 0 60px;
-      }
-    }
-
-    /* Smart Control Panel */
-    .smart-panel {
-      background: linear-gradient(135deg, rgba(30, 30, 60, 0.8) 0%, rgba(40, 40, 80, 0.6) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 2px solid rgba(100, 100, 150, 0.3);
-      border-radius: 2rem;
-      padding: 2rem;
-      position: relative;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .panel-time {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: white;
-    }
-
-    .panel-indicator {
-      width: 12px;
-      height: 12px;
-      background: #f59e0b;
-      border-radius: 50%;
-    }
-
-    .panel-welcome {
-      text-align: center;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Room Grid */
-    .room-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .room-card {
-      background: rgba(20, 20, 40, 0.6);
-      border: 2px solid rgba(100, 100, 150, 0.2);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .room-card:hover {
-      border-color: rgba(245, 158, 11, 0.5);
-      background: rgba(30, 30, 60, 0.8);
-      transform: scale(1.05);
-    }
-
-    .smart-panel {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .room-card.active {
-      background: linear-gradient(135deg, rgba(120, 80, 30, 0.8) 0%, rgba(100, 70, 20, 0.6) 100%);
-      border: 2px solid rgba(245, 158, 11, 0.6);
-    }
-
-    .room-icon {
-      width: 32px;
-      height: 32px;
-      background: rgba(245, 158, 11, 0.2);
-      border: 2px solid rgba(245, 158, 11, 0.5);
-      border-radius: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(245, 158, 11, 0.8);
-      font-size: 1.25rem;
-    }
-
-    .room-name {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 500;
-    }
-
-    /* Temperature Control */
-    .temp-control {
-      background: rgba(20, 20, 40, 0.6);
-      border: 2px solid rgba(100, 100, 150, 0.2);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .temp-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .temp-label {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .temp-value {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: white;
-    }
-
-    .temp-btn {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: white;
-      border: none;
-      border-radius: 0.75rem;
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-    }
-
-    .temp-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-    }
-
-    /* Mode Buttons */
-    .mode-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-    }
-
-    .mode-btn {
-      background: rgba(20, 20, 40, 0.6);
-      border: 1px solid rgba(100, 100, 150, 0.2);
-      border-radius: 0.75rem;
-      padding: 0.75rem;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .mode-btn:hover {
-      border-color: rgba(245, 158, 11, 0.5);
-      color: white;
-    }
-
-    /* Right Column Content */
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(100, 100, 150, 0.2);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 9999px;
-      width: fit-content;
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.2;
-      color: white;
-    }
-
-    .hero-title .gradient-text {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-description {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.8;
-      max-width: 600px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .btn-primary-hero {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .btn-primary-hero:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-    }
-
-    .btn-secondary-hero {
-      background: rgba(100, 100, 150, 0.2);
-      color: white;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 1rem 2rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .btn-secondary-hero:hover {
-      border-color: rgba(245, 158, 11, 0.6);
-      background: rgba(100, 100, 150, 0.3);
-    }
-
-    /* Stats Section */
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .stat-card {
-      background: rgba(30, 30, 60, 0.6);
-      border: 1px solid rgba(100, 100, 150, 0.2);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .stat-icon {
-      font-size: 1.75rem;
-      color: rgba(245, 158, 11, 0.8);
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: white;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Floating Shield Icon */
-    .floating-shield {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      width: 50px;
-      height: 50px;
-      background: rgba(100, 100, 150, 0.2);
-      border: 2px solid rgba(245, 158, 11, 0.3);
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(245, 158, 11, 0.8);
-      font-size: 1.5rem;
-      z-index: 100;
-    }
-
-    @media (max-width: 768px) {
-      .floating-shield {
-        display: none;
-      }
-
-      .smart-panel {
-        max-width: 100%;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .btn-primary-hero,
-      .btn-secondary-hero {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
-  
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "سمارتس هومز",
-    "alternateName": "Smarts Homes",
-    "description": "حلول المنازل الذكية المتكاملة في الرياض",
-    "url": "https://moalarbi.github.io/smarts-homes/",
-    "telephone": "+966537311886",
-    "areaServed": {
-      "@type": "City",
-      "name": "الرياض"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "الرياض",
-      "addressCountry": "SA"
-    },
-    "priceRange": "$$$",
-    "openingHours": "Su-Th 09:00-18:00"
-  }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سمارتس هومز | حلول المنازل الذكية المتكاملة في الرياض</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="سمارتس هومز - الشركة الرائدة في حلول المنازل الذكية في الرياض والمملكة العربية السعودية. تحكم ذكي، إضاءة، تكييف، أمان، ومراقبة.">
+    <meta name="keywords" content="منازل ذكية، سمارت هوم، تحكم ذكي، إضاءة ذكية، الرياض، السعودية، أتمتة المنازل">
+    <meta name="author" content="سمارتس هومز">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://moalarbi.github.io/smarts-homes/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://moalarbi.github.io/smarts-homes/">
+    <meta property="og:title" content="سمارتس هومز | حلول المنازل الذكية المتكاملة">
+    <meta property="og:description" content="تحويل المساحات وإثراء الحياة مع المنازل الذكية: الابتكار يلتقي بالراحة في كل زاوية.">
+    <meta property="og:locale" content="ar_SA">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://moalarbi.github.io/smarts-homes/">
+    <meta property="twitter:title" content="سمارتس هومز | حلول المنازل الذكية المتكاملة">
+    <meta property="twitter:description" content="تحويل المساحات وإثراء الحياة مع المنازل الذكية: الابتكار يلتقي بالراحة في كل زاوية.">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0f0f23">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* ========================================
+           الإصلاحات المطبقة:
+           1. إيقاف الأنيميشن المزعج على الجوال
+           2. تكبير أحجام النصوص والأزرار
+           3. تحسين التباين
+           4. إضافة تأثيرات اللمس
+           5. إضافة قائمة موبايل
+           6. تحسين المسافات
+        ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            color: white;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* ========================================
+           Header & Mobile Navigation - جديد
+        ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 100, 150, 0.2);
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f59e0b;
+        }
+        
+        /* زر القائمة للجوال */
+        .menu-toggle {
+            display: none;
+            background: rgba(100, 100, 150, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            color: white;
+            cursor: pointer;
+            min-width: 48px;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-toggle:active {
+            background: rgba(245, 158, 11, 0.3);
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+        }
+        
+        /* القائمة الجانبية للجوال */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(100, 100, 150, 0.3);
+        }
+        
+        .close-menu {
+            background: rgba(100, 100, 150, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            color: white;
+            cursor: pointer;
+            min-width: 48px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-menu:active {
+            background: rgba(245, 158, 11, 0.3);
+        }
+        
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(30, 30, 60, 0.5);
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            border-radius: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-height: 56px;
+        }
+        
+        .mobile-nav-link:active {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.5);
+            transform: scale(0.98);
+        }
+        
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ========================================
+           Hero Section
+        ======================================== */
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 100vh;
+            padding: 120px 0 80px;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 100px 0 60px;
+            }
+        }
+        
+        /* ========================================
+           Smart Control Panel - إصلاحات مهمة
+        ======================================== */
+        .smart-panel {
+            background: linear-gradient(135deg, rgba(30, 30, 60, 0.8) 0%, rgba(40, 40, 80, 0.6) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(100, 100, 150, 0.3);
+            border-radius: 2rem;
+            padding: 1.75rem;
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            /* إصلاح: أنيميشن خفيف فقط على الديسكتوب */
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* إصلاح: إيقاف الأنيميشن على الجوال */
+        @media (max-width: 768px) {
+            .smart-panel {
+                animation: none !important;
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .panel-time {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .panel-indicator {
+            width: 12px;
+            height: 12px;
+            background: #f59e0b;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .panel-welcome {
+            text-align: center;
+            /* إصلاح: تحسين التباين */
+            color: rgba(255, 255, 255, 0.85);
+            /* إصلاح: تكبير حجم الخط */
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* ========================================
+           Room Grid - إصلاحات اللمس
+        ======================================== */
+        .room-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* إصلاح: زيادة المسافات */
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .room-card {
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(100, 100, 150, 0.2);
+            border-radius: 1.25rem;
+            /* إصلاح: تكبير منطقة اللمس */
+            padding: 1.25rem;
+            min-height: 100px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            /* إصلاح: تحسين تجربة اللمس */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .room-card:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+            background: rgba(30, 30, 60, 0.8);
+        }
+        
+        /* إصلاح: إضافة تأثير اللمس */
+        .room-card:active {
+            transform: scale(0.95);
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.6);
+        }
+        
+        .room-card.active {
+            background: linear-gradient(135deg, rgba(120, 80, 30, 0.8) 0%, rgba(100, 70, 20, 0.6) 100%);
+            border: 2px solid rgba(245, 158, 11, 0.6);
+        }
+        
+        .room-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(245, 158, 11, 0.2);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f59e0b;
+        }
+        
+        .room-name {
+            /* إصلاح: تكبير حجم الخط وتحسين التباين */
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        /* ========================================
+           Temperature Control
+        ======================================== */
+        .temp-control {
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(100, 100, 150, 0.2);
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .temp-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .temp-label {
+            /* إصلاح: تحسين التباين */
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .temp-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .temp-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            /* إصلاح: تكبير منطقة اللمس */
+            padding: 1rem 1.5rem;
+            min-height: 48px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .temp-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* ========================================
+           Mode Buttons - إصلاحات
+        ======================================== */
+        .mode-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* إصلاح: زيادة المسافات */
+            gap: 0.75rem;
+        }
+        
+        .mode-btn {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(100, 100, 150, 0.3);
+            border-radius: 0.75rem;
+            /* إصلاح: تكبير منطقة اللمس */
+            padding: 1rem 0.5rem;
+            min-height: 48px;
+            /* إصلاح: تحسين التباين */
+            color: rgba(255, 255, 255, 0.85);
+            /* إصلاح: تكبير الخط */
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .mode-btn:active {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.5);
+            transform: scale(0.95);
+        }
+        
+        .mode-btn.active {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.5);
+            color: white;
+        }
+        
+        /* ========================================
+           Hero Content
+        ======================================== */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(100, 100, 150, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 9999px;
+            width: fit-content;
+            /* إصلاح: تكبير الخط */
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.3;
+            color: white;
+        }
+        
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-description {
+            /* إصلاح: تكبير الخط وتحسين التباين */
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            max-width: 600px;
+        }
+        
+        /* ========================================
+           Hero Buttons - إصلاحات مهمة
+        ======================================== */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-primary-hero {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            /* إصلاح: تكبير منطقة اللمس */
+            padding: 1rem 2rem;
+            min-height: 56px;
+            border-radius: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-family: inherit;
+            text-decoration: none;
+        }
+        
+        .btn-primary-hero:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        
+        .btn-secondary-hero {
+            background: rgba(100, 100, 150, 0.2);
+            color: white;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            /* إصلاح: تكبير منطقة اللمس */
+            padding: 1rem 2rem;
+            min-height: 56px;
+            border-radius: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-family: inherit;
+        }
+        
+        .btn-secondary-hero:active {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.6);
+            transform: scale(0.97);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary-hero,
+            .btn-secondary-hero {
+                width: 100%;
+            }
+        }
+        
+        /* ========================================
+           Stats Section
+        ======================================== */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        @media (min-width: 640px) {
+            .hero-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 60, 0.6);
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-icon {
+            color: #f59e0b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .stat-label {
+            /* إصلاح: تكبير الخط وتحسين التباين */
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* ========================================
+           Services Section
+        ======================================== */
+        .services-section {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 9999px;
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .section-description {
+            /* إصلاح: تحسين التباين */
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background: rgba(30, 30, 60, 0.5);
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:active {
+            transform: scale(0.98);
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+        
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f59e0b;
+            margin-bottom: 1.25rem;
+        }
+        
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        
+        .service-description {
+            /* إصلاح: تحسين التباين */
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        /* ========================================
+           CTA Section
+        ======================================== */
+        .cta-section {
+            padding: 4rem 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 2rem;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        @media (max-width: 480px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+        
+        /* ========================================
+           Video Modal - إصلاح زر الفيديو
+        ======================================== */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .video-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-modal-content {
+            background: rgba(30, 30, 60, 0.95);
+            border: 1px solid rgba(100, 100, 150, 0.3);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .video-modal-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #f59e0b;
+        }
+        
+        .video-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .video-modal-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .video-modal-close {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            min-height: 48px;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .video-modal-close:active {
+            transform: scale(0.95);
+        }
+        
+        /* ========================================
+           Footer
+        ======================================== */
+        .footer {
+            background: rgba(15, 15, 35, 0.8);
+            border-top: 1px solid rgba(100, 100, 150, 0.2);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+        
+        /* ========================================
+           Bottom Navigation Bar - جديد
+        ======================================== */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(100, 100, 150, 0.3);
+            z-index: 1000;
+            padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
+        }
+        
+        @media (max-width: 768px) {
+            .bottom-nav {
+                display: block;
+            }
+            
+            .footer {
+                padding-bottom: 100px;
+            }
+        }
+        
+        .bottom-nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+            min-width: 64px;
+        }
+        
+        .bottom-nav-item.active,
+        .bottom-nav-item:active {
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        /* ========================================
+           Floating WhatsApp Button - جديد
+        ======================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 100px;
+            left: 1.5rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 90px;
+                width: 56px;
+                height: 56px;
+            }
+        }
+        
+        /* ========================================
+           Scroll Indicator - جديد
+        ======================================== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-indicator {
+                display: none;
+            }
+        }
+        
+        /* ========================================
+           Dark Mode Support - جديد
+        ======================================== */
+        @media (prefers-color-scheme: light) {
+            body {
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+                color: #1e293b;
+            }
+            
+            .header {
+                background: rgba(248, 250, 252, 0.95);
+                border-bottom-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            .logo {
+                color: #d97706;
+            }
+            
+            .smart-panel {
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.8) 100%);
+                border-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            .panel-time,
+            .temp-value,
+            .hero-title,
+            .section-title,
+            .cta-title,
+            .stat-value,
+            .service-title {
+                color: #1e293b;
+            }
+            
+            .panel-welcome,
+            .room-name,
+            .temp-label,
+            .hero-description,
+            .section-description,
+            .service-description,
+            .stat-label,
+            .cta-description {
+                color: rgba(30, 41, 59, 0.8);
+            }
+            
+            .room-card,
+            .temp-control,
+            .mode-btn,
+            .stat-card,
+            .service-card {
+                background: rgba(255, 255, 255, 0.8);
+                border-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            .mobile-nav {
+                background: rgba(248, 250, 252, 0.98);
+            }
+            
+            .mobile-nav-link {
+                background: rgba(241, 245, 249, 0.8);
+                border-color: rgba(0, 0, 0, 0.1);
+                color: #1e293b;
+            }
+            
+            .bottom-nav {
+                background: rgba(248, 250, 252, 0.98);
+                border-top-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            .bottom-nav-item {
+                color: rgba(30, 41, 59, 0.6);
+            }
+            
+            .footer {
+                background: rgba(241, 245, 249, 0.9);
+                border-top-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            .footer-text {
+                color: rgba(30, 41, 59, 0.7);
+            }
+        }
+        
+        /* ========================================
+           Accessibility Improvements
+        ======================================== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        :focus-visible {
+            outline: 2px solid #f59e0b;
+            outline-offset: 2px;
+        }
+        
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f59e0b;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0 0 1rem 1rem;
+            z-index: 9999;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
 </head>
 <body>
-  <div id="site-header"></div>
-
-  <main>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+    
+    <!-- Header with Mobile Menu -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">سمارتس هومز</div>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="فتح القائمة">
+                <i data-lucide="menu" width="24" height="24"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="logo">سمارتس هومز</div>
+            <button class="close-menu" onclick="toggleMenu()" aria-label="إغلاق القائمة">
+                <i data-lucide="x" width="24" height="24"></i>
+            </button>
+        </div>
+        <a href="#home" class="mobile-nav-link" onclick="toggleMenu()">
+            <i data-lucide="home" width="20" height="20"></i>
+            الرئيسية
+        </a>
+        <a href="#services" class="mobile-nav-link" onclick="toggleMenu()">
+            <i data-lucide="grid-3x3" width="20" height="20"></i>
+            خدماتنا
+        </a>
+        <a href="#contact" class="mobile-nav-link" onclick="toggleMenu()">
+            <i data-lucide="phone" width="20" height="20"></i>
+            تواصل معنا
+        </a>
+    </nav>
+    
     <!-- Hero Section -->
-    <section class="gradient-bg-hero" style="padding: 0;">
-      <div class="section-inner" style="width: 100%; padding: 0 1.5rem;">
+    <main id="main-content">
+    <section id="home" class="container">
         <div class="hero-container">
-          <!-- Left: Smart Control Panel -->
-          <div class="smart-panel">
-            <div class="panel-header">
-              <div class="panel-indicator"></div>
-              <div class="panel-time">09:41</div>
+            <!-- Smart Control Panel -->
+            <div class="smart-panel">
+                <div class="panel-header">
+                    <span class="panel-time" id="current-time">09:41</span>
+                    <span class="panel-indicator"></span>
+                </div>
+                <p class="panel-welcome">مرحباً بك في منزلك الذكي</p>
+                
+                <div class="room-grid">
+                    <div class="room-card active" onclick="selectRoom(this)">
+                        <div class="room-icon">
+                            <i data-lucide="sofa" width="20" height="20"></i>
+                        </div>
+                        <span class="room-name">الصالة</span>
+                    </div>
+                    <div class="room-card" onclick="selectRoom(this)">
+                        <div class="room-icon">
+                            <i data-lucide="utensils" width="20" height="20"></i>
+                        </div>
+                        <span class="room-name">المطبخ</span>
+                    </div>
+                    <div class="room-card" onclick="selectRoom(this)">
+                        <div class="room-icon">
+                            <i data-lucide="bed" width="20" height="20"></i>
+                        </div>
+                        <span class="room-name">الغرفة</span>
+                    </div>
+                    <div class="room-card" onclick="selectRoom(this)">
+                        <div class="room-icon">
+                            <i data-lucide="trees" width="20" height="20"></i>
+                        </div>
+                        <span class="room-name">الحديقة</span>
+                    </div>
+                </div>
+                
+                <div class="temp-control">
+                    <div class="temp-info">
+                        <span class="temp-label">درجة الحرارة</span>
+                        <span class="temp-value">24°C</span>
+                    </div>
+                    <button class="temp-btn">تشغيل</button>
+                </div>
+                
+                <div class="mode-buttons">
+                    <button class="mode-btn active" onclick="selectMode(this)">صباح</button>
+                    <button class="mode-btn" onclick="selectMode(this)">مساء</button>
+                    <button class="mode-btn" onclick="selectMode(this)">سينما</button>
+                </div>
             </div>
             
-            <div class="panel-welcome">مرحباً بك في منزلك الذكي</div>
-            
-            <div class="room-grid">
-              <div class="room-card">
-                <div class="room-icon">🏠</div>
-                <div class="room-name">الصالة</div>
-              </div>
-              <div class="room-card active">
-                <div class="room-icon">🏠</div>
-                <div class="room-name">المطبخ</div>
-              </div>
-              <div class="room-card">
-                <div class="room-icon">🏠</div>
-                <div class="room-name">الغرفة</div>
-              </div>
-              <div class="room-card">
-                <div class="room-icon">🏠</div>
-                <div class="room-name">الحديقة</div>
-              </div>
+            <!-- Hero Content -->
+            <div class="hero-content">
+                <span class="hero-badge">
+                    <i data-lucide="star" width="16" height="16"></i>
+                    حلول المنازل الذكية المتكاملة
+                </span>
+                
+                <h1 class="hero-title">
+                    اجعل منزلك<br>
+                    <span class="gradient-text">أكثر ذكاءً</span>
+                </h1>
+                
+                <p class="hero-description">
+                    تحويل المساحات وإثراء الحياة مع المنازل الذكية: الابتكار يلتقي بالراحة في كل زاوية. نقدم لك حلولاً متكاملة للتحكم الذكي في منزلك.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#services" class="btn-primary-hero">
+                        اكتشف المزيد
+                        <i data-lucide="arrow-down" width="20" height="20"></i>
+                    </a>
+                    <button class="btn-secondary-hero" onclick="showVideoModal()">
+                        <i data-lucide="play" width="20" height="20"></i>
+                        شاهد الفيديو
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <i data-lucide="award" class="stat-icon" width="28" height="28"></i>
+                        <span class="stat-value">+3</span>
+                        <span class="stat-label">سنوات خبرة</span>
+                    </div>
+                    <div class="stat-card">
+                        <i data-lucide="zap" class="stat-icon" width="28" height="28"></i>
+                        <span class="stat-value">+65</span>
+                        <span class="stat-label">منتج ذكي</span>
+                    </div>
+                    <div class="stat-card">
+                        <i data-lucide="shield-check" class="stat-icon" width="28" height="28"></i>
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">أمان وحماية</span>
+                    </div>
+                    <div class="stat-card">
+                        <i data-lucide="home" class="stat-icon" width="28" height="28"></i>
+                        <span class="stat-value">+500</span>
+                        <span class="stat-label">منزل ذكي</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="temp-control">
-              <div class="temp-info">
-                <div class="temp-label">درجة الحرارة</div>
-                <div class="temp-value">24°C</div>
-              </div>
-              <button class="temp-btn">تشغيل</button>
-            </div>
-            
-            <div class="mode-buttons">
-              <button class="mode-btn">صباح</button>
-              <button class="mode-btn">مساء</button>
-              <button class="mode-btn">سينما</button>
-            </div>
-          </div>
-
-          <!-- Right: Content -->
-          <div class="hero-content">
-            <div class="hero-badge">
-              <span>⭐</span>
-              <span>حلول المنازل الذكية المتكاملة</span>
-            </div>
-            
-            <h1 class="hero-title">
-              اجعل منزلك
-              <span class="gradient-text">أكثر ذكاءً</span>
-            </h1>
-            
-            <p class="hero-description">
-              تحويل المساحات وإثراء الحياة مع المنازل الذكية: الابتكار يلتقي بالراحة في كل زاوية. نقدم لك حلولاً متكاملة للتحكم الذكي في منزلك.
-            </p>
-            
-            <div class="hero-buttons">
-              <button class="btn-primary-hero" onclick="document.querySelector('.section').scrollIntoView({behavior: 'smooth'})">
-                <span>اكتشف المزيد</span>
-                <span>⬇️</span>
-              </button>
-              <button class="btn-secondary-hero" onclick="showVideoModal()">
-                <span>▶️</span>
-                <span>شاهد الفيديو</span>
-              </button>
-            </div>
-            
-            <!-- Stats -->
-            <div class="hero-stats">
-              <div class="stat-card">
-                <div class="stat-icon">⭐</div>
-                <div class="stat-value">+3</div>
-                <div class="stat-label">سنوات خبرة</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">⚡</div>
-                <div class="stat-value">+65</div>
-                <div class="stat-label">منتج ذكي</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">🛡️</div>
-                <div class="stat-value">100%</div>
-                <div class="stat-label">أمان وحماية</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">🏠</div>
-                <div class="stat-value">+500</div>
-                <div class="stat-label">منزل ذكي</div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      
-      <!-- Floating Shield -->
-      <div class="floating-shield">🛡️</div>
     </section>
-
-    <!-- Services Preview -->
-    <section class="section" style="background: linear-gradient(180deg, #0a0a1a 0%, #0f0f2d 100%);">
-      <div class="section-inner">
-        <div class="text-center" style="margin-bottom: 3rem;">
-          <div class="glass" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; margin-bottom: 1rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">خدماتنا</span>
-          </div>
-          <h2 style="font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 1rem;">
-            حلول <span class="text-gradient">المنازل الذكية</span>
-          </h2>
-          <p style="max-width: 600px; margin: 0 auto;">
-            خدمات متكاملة تغطي كل تفاصيل التجربة الذكية: راحة، تحكم، كفاءة، وأمان… بسلاسة تامة.
-          </p>
+    
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">خدماتنا</span>
+                <h2 class="section-title">حلول المنازل الذكية</h2>
+                <p class="section-description">
+                    خدمات متكاملة تغطي كل تفاصيل التجربة الذكية: راحة، تحكم، كفاءة، وأمان… بسلاسة تامة.
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="thermometer" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">التبريد والتدفئة</h3>
+                    <p class="service-description">تحكم ذكي في مناخ منزلك مع جداول زمنية وتوفير في استهلاك الطاقة.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="building-2" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">المستشفيات الذكية</h3>
+                    <p class="service-description">حلول متقدمة للرعاية الصحية مع أنظمة متكاملة للتحكم في الغرف.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="hotel" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">الفنادق الذكية</h3>
+                    <p class="service-description">ترقية تجربة الضيافة مع أنظمة ذكية للتحكم في الغرف والمرافق.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="speaker" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">الترفيه والصوت</h3>
+                    <p class="service-description">أنظمة صوتية متكاملة مع تحكم ذكي في جميع أجهزة الترفيه.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="lightbulb" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">الإنارة الذكية</h3>
+                    <p class="service-description">تحكم كامل في الإضاءة مع إمكانية تغيير الألوان والسطوع والمشاهد.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="shield" width="28" height="28"></i>
+                    </div>
+                    <h3 class="service-title">الأمان والمراقبة</h3>
+                    <p class="service-description">حماية شاملة لمنزلك مع كاميرات ذكية ومستشعرات وأقفال إلكترونية.</p>
+                </div>
+            </div>
         </div>
-
-        <div class="cards-grid cards-grid-3">
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
-            </div>
-            <h3>التبريد والتدفئة</h3>
-            <p>تحكم ذكي في مناخ منزلك مع جداول زمنية وتوفير في استهلاك الطاقة.</p>
-          </a>
-
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
-            </div>
-            <h3>المستشفيات الذكية</h3>
-            <p>حلول متقدمة للرعاية الصحية مع أنظمة متكاملة للتحكم في الغرف.</p>
-          </a>
-
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><path d="m9 16 .348-.24c1.465-1.013 3.84-1.013 5.304 0L15 16"/><circle cx="12" cy="11" r="2"/></svg>
-            </div>
-            <h3>الفنادق الذكية</h3>
-            <p>ترقية تجربة الضيافة مع أنظمة ذكية للتحكم في الغرف والمرافق.</p>
-          </a>
-
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            </div>
-            <h3>الترفيه والصوت</h3>
-            <p>أنظمة صوتية متكاملة مع تحكم ذكي في جميع أجهزة الترفيه.</p>
-          </a>
-
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
-            </div>
-            <h3>الإنارة الذكية</h3>
-            <p>تحكم كامل في الإضاءة مع إمكانية تغيير الألوان والسطوع والمشاهد.</p>
-          </a>
-
-          <a href="solutions/index.html" class="glass-card feature-card" style="text-decoration: none;">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>الأمان والمراقبة</h3>
-            <p>حماية شاملة لمنزلك مع كاميرات ذكية ومستشعرات وأقفال إلكترونية.</p>
-          </a>
-        </div>
-
-        <div class="text-center" style="margin-top: 2.5rem;">
-          <a href="solutions/index.html" class="btn btn-primary">
-            <span>عرض جميع الخدمات</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
     </section>
-
+    
     <!-- CTA Section -->
-    <section class="section" style="background: linear-gradient(180deg, #0f0f2d 0%, #1a1a4e 100%);">
-      <div class="section-inner">
-        <div class="glass-card cta-box">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1.5rem;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <h2>مستعد لتحويل منزلك إلى <span class="text-gradient">منزل ذكي؟</span></h2>
-          <p>تواصل معنا اليوم واحصل على استشارة مجانية وعرض سعر مخصص لاحتياجاتك</p>
-          <div class="cta-buttons">
-            <a href="contact/index.html" class="btn btn-primary">تواصل معنا</a>
-            <a href="tel:966537311886" class="btn btn-secondary">اتصل الآن</a>
-          </div>
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2 class="cta-title">مستعد لتحويل منزلك إلى منزل ذكي؟</h2>
+                <p class="cta-description">تواصل معنا اليوم واحصل على استشارة مجانية وعرض سعر مخصص لاحتياجاتك</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/966537311886" class="btn-primary-hero" target="_blank">
+                        <i data-lucide="message-circle" width="20" height="20"></i>
+                        تواصل معنا
+                    </a>
+                    <a href="tel:+966537311886" class="btn-secondary-hero">
+                        <i data-lucide="phone" width="20" height="20"></i>
+                        اتصل الآن
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </main>
-
-  <div id="site-footer"></div>
-
-  <script src="assets/js/main.js"></script>
-  <script>
-    function showVideoModal() {
-      alert('سيتم إضافة الفيديو قريباً');
-    }
-  </script>
+    
+    </main>
+    
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/966537311886" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل معنا عبر واتساب">
+        <i data-lucide="message-circle" width="28" height="28"></i>
+    </a>
+    
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav" aria-label="التنقل السريع">
+        <div class="bottom-nav-items">
+            <a href="#home" class="bottom-nav-item active">
+                <i data-lucide="home" width="22" height="22"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#services" class="bottom-nav-item">
+                <i data-lucide="grid-3x3" width="22" height="22"></i>
+                <span>الخدمات</span>
+            </a>
+            <a href="tel:+966537311886" class="bottom-nav-item">
+                <i data-lucide="phone" width="22" height="22"></i>
+                <span>اتصل</span>
+            </a>
+            <a href="#contact" class="bottom-nav-item">
+                <i data-lucide="mail" width="22" height="22"></i>
+                <span>تواصل</span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">جميع الحقوق محفوظة © 2024 سمارتس هومز</p>
+        </div>
+    </footer>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-icon">
+                <i data-lucide="video" width="40" height="40"></i>
+            </div>
+            <h3 class="video-modal-title">الفيديو التعريفي</h3>
+            <p class="video-modal-text">سيتم إضافة الفيديو التعريفي قريباً. تابعنا للمزيد من التحديثات!</p>
+            <button class="video-modal-close" onclick="closeVideoModal()">حسناً</button>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('current-time').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+        
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.querySelector('.mobile-nav').classList.toggle('open');
+            document.querySelector('.nav-overlay').classList.toggle('open');
+            document.body.style.overflow = document.querySelector('.mobile-nav').classList.contains('open') ? 'hidden' : '';
+        }
+        
+        // Room selection
+        function selectRoom(element) {
+            document.querySelectorAll('.room-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            // Haptic feedback for supported devices
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+        
+        // Mode selection
+        function selectMode(element) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+        
+        // Video modal
+        function showVideoModal() {
+            document.getElementById('video-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on outside click
+        document.getElementById('video-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+        
+        // Bottom navigation active state
+        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+        const sections = document.querySelectorAll('section[id]');
+        
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            bottomNavItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Lazy loading for images using Intersection Observer
+        if ('IntersectionObserver' in window) {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
+        }
+    </script>
 </body>
 </html>
