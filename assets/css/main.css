@@ -389,7 +389,7 @@ a {
 }
 
 .drawer-content {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: min(320px, 85vw);
@@ -399,6 +399,9 @@ a {
   transform: translateX(100%);
   transition: transform 0.3s ease;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
 }
 
 .mobile-drawer.open .drawer-content {
@@ -427,11 +430,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   border: none;
   color: white;
   cursor: pointer;
   border-radius: var(--radius-md);
+  z-index: 1002;
 }
 
 .drawer-nav {

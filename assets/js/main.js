@@ -14,11 +14,11 @@ const CONFIG = {
 
 // Navigation items
 const NAV_ITEMS = [
-  { name: 'الرئيسية', href: '/', icon: 'home' },
-  { name: 'من نحن', href: '/about/', icon: 'info' },
-  { name: 'المنتجات', href: '/products/', icon: 'box' },
-  { name: 'الحلول', href: '/solutions/', icon: 'lightbulb' },
-  { name: 'تواصل معنا', href: '/contact/', icon: 'mail' }
+  { name: 'الرئيسية', href: 'index.html', icon: 'home' },
+  { name: 'من نحن', href: 'about/index.html', icon: 'info' },
+  { name: 'المنتجات', href: 'products/index.html', icon: 'box' },
+  { name: 'الحلول', href: 'solutions/index.html', icon: 'lightbulb' },
+  { name: 'تواصل معنا', href: 'contact/index.html', icon: 'mail' }
 ];
 
 // SVG Icons
@@ -35,6 +35,36 @@ const ICONS = {
   chevronDown: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
   arrowUp: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>'
 };
+
+/**
+ * Helper to get relative path based on current location
+ */
+function getRelativePath(targetPath) {
+  const currentPath = window.location.pathname;
+  const depth = (currentPath.match(/\//g) || []).length;
+  
+  // Handle root and subdirectories for GitHub Pages
+  // If we're in a subdirectory like /about/, we need to go up one level
+  // But we need to be careful with the base path /smarts-homes/
+  
+  const isGitHubPages = currentPath.includes('/smarts-homes/');
+  let prefix = '';
+  
+  if (isGitHubPages) {
+    // If we're at /smarts-homes/about/index.html, depth is 3
+    // We need to go up to /smarts-homes/
+    const parts = currentPath.split('/').filter(p => p);
+    const index = parts.indexOf('smarts-homes');
+    const relativeDepth = parts.length - index - 1;
+    prefix = '../'.repeat(relativeDepth);
+  } else {
+    // Local or root domain
+    const parts = currentPath.split('/').filter(p => p);
+    prefix = '../'.repeat(parts.length);
+  }
+  
+  return prefix + targetPath;
+}
 
 /**
  * Initialize the application
@@ -59,13 +89,16 @@ function renderHeader() {
   if (!header) return;
 
   const currentPath = window.location.pathname;
-  const isHome = currentPath === '/' || currentPath === '/index.html';
+  const isHome = currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('smarts-homes');
+  
+  const logoPath = getRelativePath('assets/img/logo.png');
+  const homeLink = getRelativePath('index.html');
 
   header.innerHTML = `
     <header class="site-header ${isHome ? '' : 'scrolled'}">
       <div class="header-inner">
-        <a href="./" class="logo" aria-label="${CONFIG.siteName} - الصفحة الرئيسية">
-          <img src="assets/img/logo.png" alt="" class="logo-img" width="48" height="48">
+        <a href="${homeLink}" class="logo" aria-label="${CONFIG.siteName} - الصفحة الرئيسية">
+          <img src="${logoPath}" alt="" class="logo-img" width="48" height="48">
           <div class="logo-text">
             <span class="logo-title">${CONFIG.siteName}</span>
             <span class="logo-subtitle">Smarts Homes</span>
@@ -74,7 +107,7 @@ function renderHeader() {
 
         <nav class="desktop-nav" aria-label="التنقل الرئيسي">
           ${NAV_ITEMS.map(item => `
-            <a href="${item.href}" 
+            <a href="${getRelativePath(item.href)}" 
                class="nav-link ${isCurrentPage(item.href) ? 'active' : ''}" 
                ${isCurrentPage(item.href) ? 'aria-current="page"' : ''}>
               ${item.name}
@@ -101,11 +134,11 @@ function renderHeader() {
           ${ICONS.close}
         </button>
         <div class="drawer-header">
-          <img src="assets/img/logo.png" alt="${CONFIG.siteName}" class="drawer-logo" width="64" height="64">
+          <img src="${logoPath}" alt="${CONFIG.siteName}" class="drawer-logo" width="64" height="64">
         </div>
         <nav class="drawer-nav" aria-label="التنقل المتنقل">
           ${NAV_ITEMS.map(item => `
-            <a href="${item.href}" 
+            <a href="${getRelativePath(item.href)}" 
                class="drawer-link ${isCurrentPage(item.href) ? 'active' : ''}"
                ${isCurrentPage(item.href) ? 'aria-current="page"' : ''}>
               ${ICONS[item.icon]}
@@ -131,13 +164,16 @@ function renderFooter() {
   const footer = document.getElementById('site-footer');
   if (!footer) return;
 
+  const logoPath = getRelativePath('assets/img/logo.png');
+  const homeLink = getRelativePath('index.html');
+
   footer.innerHTML = `
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="./" class="footer-logo">
-              <img src="assets/img/logo.png" alt="" width="40" height="40">
+            <a href="${homeLink}" class="footer-logo">
+              <img src="${logoPath}" alt="" width="40" height="40">
               <span>${CONFIG.siteName}</span>
             </a>
             <p>نقدم حلول المنازل الذكية المتكاملة بتقنيات عالمية وخبرة محلية. نحول منزلك إلى مساحة ذكية تجمع بين الراحة والأمان.</p>
@@ -157,18 +193,18 @@ function renderFooter() {
           <div class="footer-links">
             <h4>روابط سريعة</h4>
             <ul>
-              ${NAV_ITEMS.map(item => `<li><a href="${item.href}">${item.name}</a></li>`).join('')}
+              ${NAV_ITEMS.map(item => `<li><a href="${getRelativePath(item.href)}">${item.name}</a></li>`).join('')}
             </ul>
           </div>
 
           <div class="footer-links">
             <h4>خدماتنا</h4>
             <ul>
-              <li><a href="solutions/">الإنارة الذكية</a></li>
-              <li><a href="solutions/">التكييف والمناخ</a></li>
-              <li><a href="solutions/">الأمان والمراقبة</a></li>
-              <li><a href="solutions/">الستائر الذكية</a></li>
-              <li><a href="solutions/">أنظمة الصوت</a></li>
+              <li><a href="${getRelativePath('solutions/index.html')}">الإنارة الذكية</a></li>
+              <li><a href="${getRelativePath('solutions/index.html')}">التكييف والمناخ</a></li>
+              <li><a href="${getRelativePath('solutions/index.html')}">الأمان والمراقبة</a></li>
+              <li><a href="${getRelativePath('solutions/index.html')}">الستائر الذكية</a></li>
+              <li><a href="${getRelativePath('solutions/index.html')}">أنظمة الصوت</a></li>
             </ul>
           </div>
 
@@ -204,264 +240,172 @@ function renderFooter() {
  */
 function isCurrentPage(href) {
   const currentPath = window.location.pathname;
-  if (href === '/') {
-    return currentPath === '/' || currentPath === '/index.html';
+  if (href === 'index.html' || href === '/') {
+    return currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('smarts-homes');
   }
-  return currentPath.startsWith(href);
+  return currentPath.includes(href.replace('index.html', ''));
 }
 
 /**
- * Update active nav item
- */
-function updateActiveNav() {
-  document.querySelectorAll('.nav-link, .drawer-link').forEach(link => {
-    link.classList.remove('active');
-    link.removeAttribute('aria-current');
-    if (isCurrentPage(link.getAttribute('href'))) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    }
-  });
-}
-
-/**
- * Header scroll effect
+ * Header Scroll Effect
  */
 function initHeaderScroll() {
   const header = document.querySelector('.site-header');
-  if (!header) return;
-
-  let ticking = false;
+  const currentPath = window.location.pathname;
+  const isHome = currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('smarts-homes');
   
-  function updateHeader() {
+  if (!isHome) return; // Always scrolled style on subpages
+
+  window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(updateHeader);
-      ticking = true;
-    }
-  }, { passive: true });
+  });
 }
 
 /**
- * Mobile drawer functionality
+ * Mobile Drawer Functionality
  */
 function initMobileDrawer() {
   const burgerBtn = document.querySelector('.burger-btn');
-  const drawer = document.querySelector('.mobile-drawer');
+  const drawer = document.getElementById('mobile-drawer');
   const closeBtn = document.querySelector('.drawer-close');
   const overlay = document.querySelector('.drawer-overlay');
-  
+  const links = document.querySelectorAll('.drawer-link');
+
   if (!burgerBtn || !drawer) return;
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    drawer.setAttribute('aria-hidden', 'false');
-    burgerBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    closeBtn?.focus();
-  }
+  const toggleDrawer = (open) => {
+    drawer.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    burgerBtn.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+  };
 
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    drawer.setAttribute('aria-hidden', 'true');
-    burgerBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    burgerBtn.focus();
-  }
-
-  burgerBtn.addEventListener('click', openDrawer);
-  closeBtn?.addEventListener('click', closeDrawer);
-  overlay?.addEventListener('click', closeDrawer);
-
-  // Close on link click
-  drawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeDrawer);
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('open')) {
-      closeDrawer();
-    }
-  });
-
-  // Focus trap
-  drawer.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    
-    const focusableElements = drawer.querySelectorAll('a, button');
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (e.shiftKey && document.activeElement === firstElement) {
-      e.preventDefault();
-      lastElement.focus();
-    } else if (!e.shiftKey && document.activeElement === lastElement) {
-      e.preventDefault();
-      firstElement.focus();
-    }
+  burgerBtn.addEventListener('click', () => toggleDrawer(true));
+  closeBtn.addEventListener('click', () => toggleDrawer(false));
+  overlay.addEventListener('click', () => toggleDrawer(false));
+  
+  links.forEach(link => {
+    link.addEventListener('click', () => toggleDrawer(false));
   });
 }
 
 /**
- * FAQ accordion
+ * FAQ Accordion
  */
 function initFAQ() {
-  document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-      const item = question.parentElement;
-      const isOpen = item.classList.contains('open');
+  const questions = document.querySelectorAll('.faq-question');
+  
+  questions.forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isActive = item.classList.contains('active');
       
-      // Close all others (optional - remove if you want multiple open)
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Close all other items
+      document.querySelectorAll('.faq-item').forEach(other => {
+        other.classList.remove('active');
+      });
       
-      if (!isOpen) {
-        item.classList.add('open');
+      if (!isActive) {
+        item.classList.add('active');
       }
     });
   });
 }
 
 /**
- * Reveal animations on scroll
+ * Reveal Animations on Scroll
  */
 function initRevealAnimations() {
-  const reveals = document.querySelectorAll('.reveal');
-  if (!reveals.length) return;
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add('revealed');
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+  }, observerOptions);
 
-  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
 }
 
 /**
- * Animated counters
+ * Animated Counters
  */
 function initCounters() {
   const counters = document.querySelectorAll('[data-counter]');
-  if (!counters.length) return;
-
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
+        const target = entry.target;
+        const countTo = parseInt(target.getAttribute('data-counter'));
+        const suffix = target.getAttribute('data-suffix') || '';
+        let current = 0;
+        const duration = 2000;
+        const step = countTo / (duration / 16);
+        
+        const updateCount = () => {
+          current += step;
+          if (current < countTo) {
+            target.textContent = Math.floor(current) + suffix;
+            requestAnimationFrame(updateCount);
+          } else {
+            target.textContent = countTo + suffix;
+          }
+        };
+        
+        updateCount();
+        observer.unobserve(target);
       }
     });
   }, { threshold: 0.5 });
 
-  counters.forEach(counter => observer.observe(counter));
-}
-
-function animateCounter(element) {
-  const target = parseInt(element.getAttribute('data-counter'));
-  const suffix = element.getAttribute('data-suffix') || '';
-  const duration = 2000;
-  const startTime = performance.now();
-
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const easeOut = 1 - Math.pow(1 - progress, 3);
-    const current = Math.floor(easeOut * target);
-    
-    element.textContent = current + suffix;
-    
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      element.textContent = target + suffix;
-    }
-  }
-
-  requestAnimationFrame(update);
+  counters.forEach(c => observer.observe(c));
 }
 
 /**
- * Back to top button
+ * Back to Top Button
  */
 function initBackToTop() {
-  // Already handled inline in footer
-}
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/**
- * Form validation and submission
- */
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Validate
-    if (!data.name || !data.phone) {
-      showFormMessage('يرجى ملء الحقول المطلوبة', 'error');
-      return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      btn.style.opacity = '1';
+      btn.style.visibility = 'visible';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.visibility = 'hidden';
     }
-
-    // Create WhatsApp message
-    const message = `مرحباً، أنا ${data.name}\n` +
-      `رقم الجوال: ${data.phone}\n` +
-      `${data.city ? `المدينة: ${data.city}\n` : ''}` +
-      `${data.property ? `نوع العقار: ${data.property}\n` : ''}` +
-      `${data.message ? `الرسالة: ${data.message}` : ''}`;
-
-    const whatsappUrl = `${CONFIG.whatsappLink}?text=${encodeURIComponent(message)}`;
-    
-    showFormMessage('جاري تحويلك إلى واتساب...', 'success');
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-    }, 500);
   });
 }
 
-function showFormMessage(text, type) {
-  const existing = document.querySelector('.form-message');
-  if (existing) existing.remove();
-
-  const message = document.createElement('div');
-  message.className = `form-message form-message-${type}`;
-  message.textContent = text;
-  
-  const form = document.getElementById('contact-form');
-  form.insertBefore(message, form.firstChild);
-
-  setTimeout(() => message.remove(), 5000);
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
+/**
+ * Update active nav link based on scroll position
+ * (Useful for one-page sections, but here we use it for subpages)
+ */
+function updateActiveNav() {
+  // Logic already handled in renderHeader via isCurrentPage
 }
 
-// Export for global access
-window.CONFIG = CONFIG;
-window.scrollToTop = scrollToTop;
+// Start the app
+document.addEventListener('DOMContentLoaded', init);
